@@ -28,8 +28,12 @@ class AppRouter extends _i3.RootStackRouter {
           routeData: routeData, child: const _i1.LoginScreen());
     },
     EmployeeDashboardRoute.name: (routeData) {
+      final args = routeData.argsAs<EmployeeDashboardRouteArgs>(
+          orElse: () => const EmployeeDashboardRouteArgs());
       return _i3.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i2.EmployeeDashboardScreen());
+          routeData: routeData,
+          child: _i2.EmployeeDashboardScreen(
+              key: args.key, selectedIndex: args.selectedIndex));
     }
   };
 
@@ -51,9 +55,26 @@ class LoginRoute extends _i3.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.EmployeeDashboardScreen]
-class EmployeeDashboardRoute extends _i3.PageRouteInfo<void> {
-  const EmployeeDashboardRoute()
-      : super(EmployeeDashboardRoute.name, path: '/employee-dashboard-screen');
+class EmployeeDashboardRoute
+    extends _i3.PageRouteInfo<EmployeeDashboardRouteArgs> {
+  EmployeeDashboardRoute({_i4.Key? key, int selectedIndex = 0})
+      : super(EmployeeDashboardRoute.name,
+            path: '/employee-dashboard-screen',
+            args: EmployeeDashboardRouteArgs(
+                key: key, selectedIndex: selectedIndex));
 
   static const String name = 'EmployeeDashboardRoute';
+}
+
+class EmployeeDashboardRouteArgs {
+  const EmployeeDashboardRouteArgs({this.key, this.selectedIndex = 0});
+
+  final _i4.Key? key;
+
+  final int selectedIndex;
+
+  @override
+  String toString() {
+    return 'EmployeeDashboardRouteArgs{key: $key, selectedIndex: $selectedIndex}';
+  }
 }

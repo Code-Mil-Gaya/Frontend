@@ -2,17 +2,18 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:dr_jadoo/constants/colours.dart';
 import 'package:dr_jadoo/constants/strings.dart';
 import 'package:dr_jadoo/model/User/current_user.dart';
-import 'package:dr_jadoo/screens/common-widgets/tile_card.dart';
+import 'package:dr_jadoo/screens/employee_dashboard/pages/asset_page.dart';
+import 'package:dr_jadoo/screens/employee_dashboard/pages/request_page.dart';
+import 'package:dr_jadoo/screens/employee_dashboard/pages/timeline_page.dart';
+import 'package:dr_jadoo/widget/tile_card.dart';
 import 'package:dr_jadoo/services/employee_dashboard_service.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../constants/assets.dart';
-import '../common-widgets/appbar.dart';
-import '../common-widgets/asset_card.dart';
+import 'package:dr_jadoo/constants/assets.dart';
+import 'package:dr_jadoo/widget/asset_card.dart';
 
 class EmployeeDashboardScreen extends StatefulWidget {
-  const EmployeeDashboardScreen({Key? key}) : super(key: key);
-
+  EmployeeDashboardScreen({Key? key, this.selectedIndex = 0}) : super(key: key);
+  int selectedIndex;
   @override
   State<EmployeeDashboardScreen> createState() =>
       _EmployeeDashboardScreenState();
@@ -20,6 +21,7 @@ class EmployeeDashboardScreen extends StatefulWidget {
 
 class _EmployeeDashboardScreenState extends State<EmployeeDashboardScreen> {
   CurrentUser? user;
+  Widget? currentPage;
 
   @override
   void initState() {
@@ -29,9 +31,33 @@ class _EmployeeDashboardScreenState extends State<EmployeeDashboardScreen> {
   }
 
   void initstate() async {
-    final CurrentUser? _user = await EmployeeDashboardService.instance.getCurrentUser();
+    final CurrentUser? _user =
+        await EmployeeDashboardService.instance.getCurrentUser();
     setState(() {
       user = _user;
+    });
+
+    getCurrentPage(widget.selectedIndex);
+  }
+
+  void getCurrentPage(int selectedIndex) {
+    Widget _currentPage = const CircularProgressIndicator(
+      color: AppColors.primaryColor,
+    );
+    switch (selectedIndex) {
+      case 0:
+        _currentPage = AssetPage(user: user, assets: []);
+        break;
+      case 1:
+        _currentPage = const RequestPage();
+        break;
+      case 2:
+        _currentPage = const TimelinePage();
+        break;
+    }
+    setState(() {
+      widget.selectedIndex = selectedIndex;
+      currentPage = _currentPage;
     });
   }
 
@@ -68,12 +94,20 @@ class _EmployeeDashboardScreenState extends State<EmployeeDashboardScreen> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      user!.groups!.map((u) => u.name).join("/n"),
-                                      style: Theme.of(context).textTheme.subtitle2!.copyWith(color: AppColors.white),
+                                      user!.groups!
+                                          .map((u) => u.name)
+                                          .join("/n"),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle2!
+                                          .copyWith(color: AppColors.white),
                                     ),
                                     Text(
                                       user!.designation.toString(),
-                                        style: Theme.of(context).textTheme.headline6!.copyWith(color: AppColors.textColor),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline6!
+                                          .copyWith(color: AppColors.textColor),
                                     )
                                   ],
                                 ),
@@ -84,75 +118,33 @@ class _EmployeeDashboardScreenState extends State<EmployeeDashboardScreen> {
                               const Divider(
                                 color: Colors.white,
                               ),
-                              Container(
-                                padding:
-                                    const EdgeInsets.only(left: 20, right: 20),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: const [
-                                    Image(
-                                      image: AssetImage(Assets.asset),
-                                      height: 30,
-                                    ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Text(
-                                      'Assets',
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 25),
-                                    )
-                                  ],
-                                ),
-                              ),
+                              getDrawerTile(
+                                AppStrings.assets, 
+                                Assets.asset, 
+                                0,
+                                () {
+                                  getCurrentPage(0);
+                                }),
                               const Divider(
                                 color: Colors.white,
                               ),
-                              Container(
-                                padding:
-                                    const EdgeInsets.only(left: 20, right: 20),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: const [
-                                    Image(
-                                      image: AssetImage(Assets.request),
-                                      height: 30,
-                                    ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Text(
-                                      'Requests',
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 25),
-                                    )
-                                  ],
-                                ),
-                              ),
+                              getDrawerTile(
+                                AppStrings.requests, 
+                                Assets.request, 
+                                1,
+                                () {
+                                  getCurrentPage(1);
+                                }),
                               const Divider(
                                 color: Colors.white,
                               ),
-                              Container(
-                                padding:
-                                    const EdgeInsets.only(left: 20, right: 20),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: const [
-                                    Image(
-                                      image: AssetImage(Assets.timeline),
-                                      height: 30,
-                                    ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Text(
-                                      'Timeline',
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 25),
-                                    )
-                                  ],
-                                ),
-                              ),
+                              getDrawerTile(
+                                AppStrings.timeline, 
+                                Assets.timeline, 
+                                2,
+                                () {
+                                  getCurrentPage(2);
+                                }),
                               const Divider(
                                 color: Colors.white,
                               ),
@@ -160,88 +152,40 @@ class _EmployeeDashboardScreenState extends State<EmployeeDashboardScreen> {
                           ),
                         ),
                       ),
-                      Expanded(
-                        flex: 5,
-                        child: Container(
-                          height: MediaQuery.of(context).size.height * 0.91,
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                          color: AppColors.backgroundColor,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  DottedBorder(
-                                    borderType: BorderType.Circle,
-                                    radius: const Radius.circular(50),
-                                    padding: const EdgeInsets.all(6),
-                                    color: AppColors.primaryColor,
-                                    child: ClipRRect(
-                                      borderRadius: const BorderRadius.all(Radius.circular(50)),
-                                      child: Container(
-                                        height: 75,
-                                        width: 75,
-                                        color: AppColors.primaryColor,
-                                        child: Center(child: Text('${user!.username![0]}${user!.username!.split(' ')[1][0]}', style: Theme.of(context).textTheme.headline4!.copyWith(color: AppColors.white),)),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 15),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        'Hi ${user!.username} !',
-                                        style: Theme.of(context).textTheme.headline4!.copyWith(color: AppColors.black),
-                                      ),
-                                      Text(
-                                        AppStrings.employeeDashboardWelcome,
-                                        style: Theme.of(context).textTheme.headline6!.copyWith(color: AppColors.grey),
-                                      ),
-                                  ]
-                                )
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  AssetCard(
-                                    assetType: 'laptop',
-                                  ),
-                                  AssetCard(
-                                    assetType: 'mobile',
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {},
-                                    child: Image(
-                                      image: AssetImage(Assets.addNewAsset), 
-                                      fit: BoxFit.cover,
-                                      height: 300
-                                      )
-                                  )
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  TileCard(backgroundImage: Assets.requestTab, tileImage: Assets.request, text: AppStrings.requests, onTap: () {}),
-                                  TileCard(backgroundImage: Assets.timelineTab, tileImage: Assets.timeline, text: AppStrings.timeline, onTap: () {})
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      )
+                      currentPage!
                     ],
                   )
                 ],
               )
             : const Center(
-              child: CircularProgressIndicator(
+                child: CircularProgressIndicator(
                   color: AppColors.primaryColor,
                 ),
-            ));
+              ));
+  }
+
+  Widget getDrawerTile(String title, String asset, int index, Function() onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.only(left: 20, right: 20),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image(
+              image: AssetImage(asset),
+              height: 30,
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            Text(
+              title,
+              style: TextStyle(color: index == widget.selectedIndex ? AppColors.primaryColor : AppColors.white, fontSize: 25),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
