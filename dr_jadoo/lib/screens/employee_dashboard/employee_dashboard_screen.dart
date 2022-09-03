@@ -22,7 +22,7 @@ class _EmployeeDashboardScreenState extends State<EmployeeDashboardScreen> {
   }
 
   void initstate() async {
-    currentUser = await EmployeeDashboardSerivce.instance.getCurrentUser();
+    currentUser = await EmployeeDashboardService.instance.getCurrentUser();
   }
 
   @override

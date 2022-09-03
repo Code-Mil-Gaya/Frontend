@@ -12,11 +12,11 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/constants.dart';
 
-class EmployeeDashboardSerivce {
-  static EmployeeDashboardSerivce? _instance;
+class EmployeeDashboardService {
+  static EmployeeDashboardService? _instance;
   
-  static EmployeeDashboardSerivce get instance {
-    _instance ??= EmployeeDashboardSerivce();
+  static EmployeeDashboardService get instance {
+    _instance ??= EmployeeDashboardService();
     return _instance!;
   }
 
