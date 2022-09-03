@@ -3,6 +3,7 @@ import 'package:dr_jadoo/constants/colours.dart';
 import 'package:dr_jadoo/constants/strings.dart';
 import 'package:dr_jadoo/model/User/current_user.dart';
 import 'package:dr_jadoo/screens/employee_dashboard/pages/asset_page.dart';
+import 'package:dr_jadoo/screens/employee_dashboard/pages/insights_page.dart';
 import 'package:dr_jadoo/screens/employee_dashboard/pages/request_page.dart';
 import 'package:dr_jadoo/screens/employee_dashboard/pages/timeline_page.dart';
 import 'package:dr_jadoo/widget/tile_card.dart';
@@ -46,13 +47,16 @@ class _EmployeeDashboardScreenState extends State<EmployeeDashboardScreen> {
     );
     switch (selectedIndex) {
       case 0:
-        _currentPage = AssetPage(user: user, assets: []);
+        _currentPage = AssetPage(user: user);
         break;
       case 1:
         _currentPage = const RequestPage();
         break;
       case 2:
         _currentPage = const TimelinePage();
+        break;
+      case 3:
+        _currentPage = const InsightsPage();
         break;
     }
     setState(() {
@@ -144,6 +148,16 @@ class _EmployeeDashboardScreenState extends State<EmployeeDashboardScreen> {
                                 2,
                                 () {
                                   getCurrentPage(2);
+                                }),
+                              const Divider(
+                                color: Colors.white,
+                              ),
+                              getDrawerTile(
+                                AppStrings.insights, 
+                                Assets.insights, 
+                                3,
+                                () {
+                                  getCurrentPage(3);
                                 }),
                               const Divider(
                                 color: Colors.white,
