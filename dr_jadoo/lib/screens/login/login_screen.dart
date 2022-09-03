@@ -101,11 +101,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       EdgeInsets.only(top: screenHeight * 0.045),
                   child: CustomTextFormField(
                     prefixIcon: const Padding(
-                      padding: EdgeInsets.all(2.0),
+                      padding: EdgeInsets.all(12.0),
                       child: Image(
                         image: AssetImage(Assets.account),
-                        height: 25,
-                        width: 25,
+                        height: 35,
+                        width: 35,
                       ),
                     ),
                     controller: usernameController,
@@ -125,11 +125,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       vertical: screenHeight * 0.02),
                   child: CustomTextFormField(
                     prefixIcon: const Padding(
-                      padding: EdgeInsets.all(2.0),
+                      padding: EdgeInsets.all(12.0),
                       child: Image(
                         image: AssetImage(Assets.password),
-                        height: 25,
-                        width: 25,
+                        height: 35,
+                        width: 35,
                       ),
                     ),
                     controller: passwordController,
@@ -203,8 +203,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       AppStrings.forgetYourPassword,
                       style: Theme.of(context)
                         .textTheme
-                        .caption!.copyWith(
+                        .subtitle1!.copyWith(
                           fontWeight: FontWeight.w400,
+                          decoration: TextDecoration.underline,
+                          decorationColor: AppColors.primaryColor
                         )
                     )
                   ),

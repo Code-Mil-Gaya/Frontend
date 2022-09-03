@@ -46,51 +46,49 @@ class CustomTextFormField extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     final double screenWidth = size.width;
 
-    return TextFormField(
-        controller: controller,
-        maxLines: maxLines,
-        enabled: enabled,
-        focusNode: focusNode,
-        textInputAction: textInputAction,
-        keyboardType: keyboardType,
-        onFieldSubmitted: onSubmitted,
-        onTap: onTap,
-        onChanged: onChanged,
-        validator: validator,
-        autocorrect: autocorrect,
-        obscureText: obscureText,
-        maxLength: maxLength,
-        decoration: InputDecoration(
-          prefixIcon: prefixIcon,
-          suffixIcon: suffixIcon,
-          hintStyle: Theme.of(context)
-              .textTheme
-              .subtitle1!.copyWith(
-                fontWeight: FontWeight.w500
-              ),
-          hintText: hintText,
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 16,
-          ),
-          labelStyle: Theme.of(context)
-              .textTheme
-              .subtitle1!.copyWith(
-                fontWeight: FontWeight.w500
-              ),
-          labelText: labelText,
-          isDense: true,
-          fillColor: Theme.of(context).secondaryHeaderColor,
-          border: OutlineInputBorder(
-            borderSide: BorderSide(
-                width: screenWidth * 0.05),
-            borderRadius: BorderRadius.circular(screenWidth * 0.05),
-          ),
-          disabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                width: screenWidth * 0.05),
-            borderRadius: BorderRadius.circular(screenWidth * 0.05),
-          ),
-        ));
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(),
+        borderRadius: BorderRadius.circular(screenWidth * 0.05)
+      ),
+      child: TextFormField(
+          controller: controller,
+          maxLines: maxLines,
+          enabled: enabled,
+          focusNode: focusNode,
+          textInputAction: textInputAction,
+          keyboardType: keyboardType,
+          onFieldSubmitted: onSubmitted,
+          onTap: onTap,
+          onChanged: onChanged,
+          validator: validator,
+          autocorrect: autocorrect,
+          obscureText: obscureText,
+          maxLength: maxLength,
+          decoration: InputDecoration(
+            icon: prefixIcon,
+            suffixIcon: suffixIcon,
+            hintStyle: Theme.of(context)
+                .textTheme
+                .subtitle1!.copyWith(
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.grey
+                ),
+            hintText: hintText,
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 16,
+            ),
+            border: InputBorder.none,
+            labelStyle: Theme.of(context)
+                .textTheme
+                .subtitle1!.copyWith(
+                  fontWeight: FontWeight.w500,
+                ),
+            labelText: labelText,
+            isDense: true,
+            fillColor: Theme.of(context).secondaryHeaderColor,
+          )),
+    );
   }
 }
