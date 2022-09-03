@@ -6,6 +6,7 @@ import 'package:dr_jadoo/constants/strings.dart';
 import 'package:dr_jadoo/model/Asset/asset_response.dart';
 import 'package:dr_jadoo/model/User/current_user.dart';
 import 'package:dr_jadoo/routes/router.gr.dart';
+import 'package:dr_jadoo/services/assets_service.dart';
 import 'package:dr_jadoo/widget/asset_card.dart';
 import 'package:dr_jadoo/widget/tile_card.dart';
 import 'package:flutter/material.dart';
@@ -14,12 +15,29 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/ticker_provider.dart';
 
-class AssetPage extends StatelessWidget {
+class AssetPage extends StatefulWidget {
+  const AssetPage({super.key, this.user});
   final CurrentUser? user;
-  final List<AssetResponse> assets;
+  @override
+  State<AssetPage> createState() => _AssetPageState();
+}
 
-  const AssetPage({super.key, required this.user, required this.assets});
-  
+class _AssetPageState extends State<AssetPage> {
+  List<AssetResponse> assets = [];
+  @override
+  void initState() {
+    super.initState();
+    initstate();
+  }
+
+  initstate() async {
+    List<AssetResponse> _assets =
+        await AssetService.instance.getCurrentOwnedAsset();
+    setState(() {
+      assets = _assets;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -47,7 +65,7 @@ class AssetPage extends StatelessWidget {
                       color: AppColors.primaryColor,
                       child: Center(
                           child: Text(
-                        '${user!.username![0]}${user!.username!.split(' ')[1][0]}',
+                        '${widget.user!.username![0]}${widget.user!.username!.split(' ')[1][0]}',
                         style: Theme.of(context)
                             .textTheme
                             .headline4!
@@ -62,7 +80,7 @@ class AssetPage extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        'Hi ${user!.username} !',
+                        'Hi ${widget.user!.username} !',
                         style: Theme.of(context)
                             .textTheme
                             .headline4!
@@ -81,12 +99,10 @@ class AssetPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                const AssetCard(
-                  assetType: 'laptop',
-                ),
-                const AssetCard(
-                  assetType: 'mobile',
-                ),
+                for (AssetResponse asset in assets)
+                  AssetCard(
+                    asset: asset,
+                  ),
                 GestureDetector(
                     onTap: () {},
                     child: const Image(
@@ -103,15 +119,16 @@ class AssetPage extends StatelessWidget {
                     tileImage: Assets.request,
                     text: AppStrings.requests,
                     onTap: () {
-                      AutoRouter.of(context).push(EmployeeDashboardRoute(selectedIndex: 1));
+                      AutoRouter.of(context)
+                          .push(EmployeeDashboardRoute(selectedIndex: 1));
                     }),
                 TileCard(
                     backgroundImage: Assets.timelineTab,
                     tileImage: Assets.timeline,
                     text: AppStrings.timeline,
                     onTap: () {
-
-                      AutoRouter.of(context).push(EmployeeDashboardRoute(selectedIndex: 2));
+                      AutoRouter.of(context)
+                          .push(EmployeeDashboardRoute(selectedIndex: 2));
                     })
               ],
             )

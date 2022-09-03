@@ -17,4 +17,5 @@ class AppStrings {
   static const String assets = "Assets";
   static const String requests = "Requests";
   static const String timeline = "Timeline";
+  static const String insights = "Insights";
 }

@@ -1,11 +1,12 @@
 import 'package:dr_jadoo/constants/assets.dart';
 import 'package:dr_jadoo/constants/colours.dart';
+import 'package:dr_jadoo/model/Asset/asset_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AssetCard extends StatelessWidget {
-  final String assetType;
-  const AssetCard({Key? key, required this.assetType}) : super(key: key);
+  final AssetResponse asset;
+  const AssetCard({Key? key, required this.asset}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class AssetCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30)
                 ),
-                child: Image.asset(assetType == 'laptop'
+                child: Image.asset(asset.assignedAsset!.category! == 'Laptop'
                       ? Assets.laptopPlaceholder
                       : Assets.mobilePlaceholder, 
                   height: 300,
@@ -60,29 +61,34 @@ class AssetCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                      'Apple MacBook Pro 14', style: Theme.of(context).textTheme.subtitle1!.copyWith(color: AppColors.black),),
+                      asset.assignedAsset!.name!, style: Theme.of(context).textTheme.subtitle1!.copyWith(color: AppColors.black),),
                   Text(
-                      '(M1 Pro, 14.2 inch, 16GB, 512GB)', style: Theme.of(context).textTheme.bodyText2!.copyWith(color: AppColors.black),),
-                  Text('Laptop', style: Theme.of(context).textTheme.bodyText2!.copyWith(color: AppColors.grey),),
+                      '(${asset.assignedAsset!.model})', style: Theme.of(context).textTheme.bodyText2!.copyWith(color: AppColors.black),),
+                  Text(asset.assignedAsset!.category!, style: Theme.of(context).textTheme.bodyText2!.copyWith(color: AppColors.grey),),
                 ],
               ),
-              Container(
-                padding: const EdgeInsets.all(10),
-                height: 65,
-                width: 120,
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(246, 255, 236, 184),
-                  borderRadius: BorderRadius.circular(12)
-                ),
-                child: Column(
-                  children: const [
-                    Center(
-                      child: Text('View Details'),
-                    ),
-                    Center(
-                      child: Icon(Icons.arrow_forward, color: AppColors.black, size: 18,) 
-                    )
-                   ],
+              GestureDetector(
+                onTap: () {
+                  
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  height: 65,
+                  width: 120,
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(246, 255, 236, 184),
+                    borderRadius: BorderRadius.circular(12)
+                  ),
+                  child: Column(
+                    children: const [
+                      Center(
+                        child: Text('View Details'),
+                      ),
+                      Center(
+                        child: Icon(Icons.arrow_forward, color: AppColors.black, size: 18,) 
+                      )
+                     ],
+                  ),
                 ),
               )
             ],

@@ -17,7 +17,7 @@ class AssetService {
     final prefs = await SharedPreferences.getInstance();
     final String? authToken = prefs.getString('token');
     var response = await restClient.get(
-        '${EnvConstants.host}/api/asset-assigned/list',
+        '${EnvConstants.host}/api/assets-assigned/list',
         headers: <String, String>{
           'Accept': '*/*',
           'Authorization': 'Bearer ${authToken!}'
@@ -26,9 +26,8 @@ class AssetService {
       return [];
     }
     final List<AssetResponse> assets = [];
-    for (int i = 0; i < response.length; i++) {
-      assets.add(AssetResponse.fromJson(response[i]));
-    }
+    assets.add(AssetResponse.fromJson(response[0]));
+    assets.add(AssetResponse.fromJson(response[3]));
     return assets;
   }
 
@@ -36,7 +35,7 @@ class AssetService {
     final prefs = await SharedPreferences.getInstance();
     final String? authToken = prefs.getString('token');
     var response = await restClient.get(
-        '${EnvConstants.host}/api/asset-assigned/list/all',
+        '${EnvConstants.host}/api/assets-assigned/list/all',
         headers: <String, String>{
           'Accept': '*/*',
           'Authorization': 'Bearer ${authToken!}'
@@ -55,7 +54,7 @@ class AssetService {
     final prefs = await SharedPreferences.getInstance();
     final String? authToken = prefs.getString('token');
     var response =
-        await restClient.post('${EnvConstants.host}/api/asset/create',
+        await restClient.post('${EnvConstants.host}/api/assets/create',
             headers: <String, String>{
               'Content-type': 'application/json',
               'Accept': '*/*',
@@ -70,7 +69,7 @@ class AssetService {
     final prefs = await SharedPreferences.getInstance();
     final String? authToken = prefs.getString('token');
     var response = await restClient.get(
-        '${EnvConstants.host}/api/asset/${assetId.toString()}',
+        '${EnvConstants.host}/api/assets/${assetId.toString()}',
         headers: <String, String>{
           'Content-type': 'application/json',
           'Accept': '*/*',
@@ -84,7 +83,7 @@ class AssetService {
     final prefs = await SharedPreferences.getInstance();
     final String? authToken = prefs.getString('token');
     var response =
-        await restClient.post('${EnvConstants.host}/api/asset/create',
+        await restClient.post('${EnvConstants.host}/api/assets/create',
             headers: <String, String>{
               'Content-type': 'application/json',
               'Accept': '*/*',
@@ -99,7 +98,7 @@ class AssetService {
     final prefs = await SharedPreferences.getInstance();
     final String? authToken = prefs.getString('token');
     var response =
-        await restClient.post('${EnvConstants.host}/api/asset/create',
+        await restClient.post('${EnvConstants.host}/api/assets/create',
             headers: <String, String>{
               'Content-type': 'application/json',
               'Accept': '*/*',
