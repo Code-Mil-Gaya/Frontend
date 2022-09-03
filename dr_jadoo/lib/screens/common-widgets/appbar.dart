@@ -13,7 +13,7 @@ class Appbar extends StatelessWidget {
           width: 20,
         ),
         Container(
-          padding: const EdgeInsets.only(top: 20, bottom: 5),
+          padding: const EdgeInsets.only(top: 15, bottom: 15),
           child: const Image(
             image: AssetImage(Assets.jadooLogoSmall),
             height: 40,
