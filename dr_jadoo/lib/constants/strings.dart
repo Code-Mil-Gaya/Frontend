@@ -7,6 +7,7 @@ class AppStrings {
   static const String pleaseEnterValidEmail = "Please enter valid email.";
   static const String password = "Password";
   static const String pleaseEnterValidPassword = "Please enter valid password.";
+  static const String pleaseEnterValidData = "Please enter valid data.";
   static const String login = "Login";
   static const String forgetYourPassword = "Forgot Password?";
   static const String notification = "Notifications";

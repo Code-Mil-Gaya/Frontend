@@ -3,9 +3,11 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:dr_jadoo/constants/assets.dart';
 import 'package:dr_jadoo/constants/colours.dart';
 import 'package:dr_jadoo/constants/strings.dart';
+import 'package:dr_jadoo/core/popup_service.dart';
 import 'package:dr_jadoo/model/Asset/asset_response.dart';
 import 'package:dr_jadoo/model/User/current_user.dart';
 import 'package:dr_jadoo/routes/router.gr.dart';
+import 'package:dr_jadoo/screens/forms/new_asset_form.dart';
 import 'package:dr_jadoo/services/assets_service.dart';
 import 'package:dr_jadoo/widget/asset_card.dart';
 import 'package:dr_jadoo/widget/tile_card.dart';
@@ -104,7 +106,12 @@ class _AssetPageState extends State<AssetPage> {
                     asset: asset,
                   ),
                 GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      popupsService.showDialog(context,
+                          widget: AlertDialog(
+                            content: NewAssetForm(),
+                          ));
+                    },
                     child: const Image(
                         image: AssetImage(Assets.addNewAsset),
                         fit: BoxFit.cover,
