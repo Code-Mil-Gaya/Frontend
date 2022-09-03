@@ -3,9 +3,11 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:dr_jadoo/constants/assets.dart';
 import 'package:dr_jadoo/constants/colours.dart';
 import 'package:dr_jadoo/constants/strings.dart';
+import 'package:dr_jadoo/core/popup_service.dart';
 import 'package:dr_jadoo/model/Asset/asset_response.dart';
 import 'package:dr_jadoo/model/User/current_user.dart';
 import 'package:dr_jadoo/routes/router.gr.dart';
+import 'package:dr_jadoo/screens/forms/new_asset_form.dart';
 import 'package:dr_jadoo/widget/asset_card.dart';
 import 'package:dr_jadoo/widget/tile_card.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +21,7 @@ class AssetPage extends StatelessWidget {
   final List<AssetResponse> assets;
 
   const AssetPage({super.key, required this.user, required this.assets});
-  
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -88,7 +90,10 @@ class AssetPage extends StatelessWidget {
                   assetType: 'mobile',
                 ),
                 GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      popupsService.showDialog(context,
+                          widget: const AlertDialog(content: NewAssetForm()));
+                    },
                     child: const Image(
                         image: AssetImage(Assets.addNewAsset),
                         fit: BoxFit.cover,
@@ -103,15 +108,16 @@ class AssetPage extends StatelessWidget {
                     tileImage: Assets.request,
                     text: AppStrings.requests,
                     onTap: () {
-                      AutoRouter.of(context).push(EmployeeDashboardRoute(selectedIndex: 1));
+                      AutoRouter.of(context)
+                          .push(EmployeeDashboardRoute(selectedIndex: 1));
                     }),
                 TileCard(
                     backgroundImage: Assets.timelineTab,
                     tileImage: Assets.timeline,
                     text: AppStrings.timeline,
                     onTap: () {
-
-                      AutoRouter.of(context).push(EmployeeDashboardRoute(selectedIndex: 2));
+                      AutoRouter.of(context)
+                          .push(EmployeeDashboardRoute(selectedIndex: 2));
                     })
               ],
             )
