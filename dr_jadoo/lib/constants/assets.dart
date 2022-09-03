@@ -14,7 +14,7 @@ class Assets {
   static const String arrowRight = "assets/images/arrow_right.png";
   static const String timelineTab = "assets/images/timeline_tab.png";
   static const String requestTab = "assets/images/request_tab.png";
-  static const String home = "assets/images/home.png";
+  static const String asset = "assets/images/asset.png";
   static const String request = "assets/images/request.png";
   static const String timeline = "assets/images/timeline.png";
   static const String laptopPlaceholder = "assets/images/laptop_placeholder.png";

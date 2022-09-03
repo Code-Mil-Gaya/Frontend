@@ -1,11 +1,6 @@
-import 'dart:convert';
-
-import 'package:another_flushbar/flushbar.dart';
-import 'package:dr_jadoo/constants/colours.dart';
-import 'package:dr_jadoo/core/popup_service.dart';
 import 'package:dr_jadoo/core/rest_client.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/constants.dart';
 
@@ -41,5 +36,20 @@ class LoginService {
     } else {
       return false;
     }
+  }
+
+  Future<bool> isLoggedIn() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? authToken = prefs.getString('token');
+    Map<String, dynamic> payload;
+    if (authToken != null) {
+      payload = JwtDecoder.decode(authToken);
+      if (payload['exp'] < DateTime.now().millisecondsSinceEpoch / 1000) {
+        return false;
+      }
+    } else {
+      return false;
+    }
+    return true;
   }
 }

@@ -1,3 +1,4 @@
+import 'package:dr_jadoo/constants/colours.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../constants/assets.dart';
@@ -14,6 +15,7 @@ class Appbar extends StatelessWidget {
         ),
         Container(
           padding: const EdgeInsets.only(top: 15, bottom: 15),
+          color: AppColors.white,
           child: const Image(
             image: AssetImage(Assets.jadooLogoSmall),
             height: 40,

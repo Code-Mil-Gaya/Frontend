@@ -14,22 +14,23 @@ import '../constants/constants.dart';
 
 class EmployeeDashboardService {
   static EmployeeDashboardService? _instance;
-  
+
   static EmployeeDashboardService get instance {
     _instance ??= EmployeeDashboardService();
     return _instance!;
   }
 
-  Future<CurrentUser> getCurrentUser() async {
+  Future<CurrentUser?> getCurrentUser() async {
     final prefs = await SharedPreferences.getInstance();
     final String? authToken = prefs.getString('token');
-    var response = await restClient.get(
-      '${EnvConstants.host}/api/user/',
-      headers: <String, String>{
-        'Accept': '*/*',
-        'Authorization': 'Bearer ${authToken!}' 
-      }
-    );
+    var response = await restClient.get('${EnvConstants.host}/api/user/',
+        headers: <String, String>{
+          'Accept': '*/*',
+          'Authorization': 'Bearer ${authToken!}'
+        });
+    if (response is Error) {
+      return null;
+    }
     final CurrentUser currentUser = CurrentUser.fromJson(response);
     return currentUser;
   }
