@@ -186,8 +186,27 @@ class _AssetCardState extends State<AssetCard> {
                     Text(
                       widget.asset!.approvedBy!.username!, style: Theme.of(context).textTheme.bodyText1!.copyWith(color: AppColors.black),),
                       ],
-                    )
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: AppColors.primaryColor),
+                      onPressed: () {
+                        
+                      },
+                      child: Text('Give Feedback', style: Theme.of(context).textTheme.subtitle1!.copyWith(color: AppColors.black),),
+                    ),
                     
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: AppColors.textColor),
+                      onPressed: () {
+                        
+                      },
+                      child: Text('Raise By', style: Theme.of(context).textTheme.subtitle1!.copyWith(color: AppColors.white),),
+                    ),
+                      ],
+                    )
                   ],
                 )
               ],

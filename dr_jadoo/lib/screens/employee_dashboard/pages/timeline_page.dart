@@ -1,3 +1,4 @@
+import 'package:dr_jadoo/constants/assets.dart';
 import 'package:dr_jadoo/constants/colours.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/animation/animation_controller.dart';
@@ -35,8 +36,11 @@ class _TimelinePageState extends State<TimelinePage>
       child: Container(
         height: MediaQuery.of(context).size.height * 0.91,
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        color: AppColors.backgroundColor,
-        child: Text("Timeline"),)
+        decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage(Assets.timelinePage), fit: BoxFit.contain)
+        ),
+
+        )
       );
   }
 }

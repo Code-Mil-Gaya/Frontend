@@ -17,7 +17,8 @@ class Assets {
   static const String asset = "assets/images/asset.png";
   static const String request = "assets/images/request.png";
   static const String timeline = "assets/images/timeline.png";
-  static const String insights = "assets/images/insights.png";
+  static const String insights = "assets/images/timeline.png";
+  static const String timelinePage = "assets/images/timeline_page.png";
   static const String laptopPlaceholder = "assets/images/laptop_placeholder.png";
   static const String mobilePlaceholder = "assets/images/mobile_placeholder.png";
 }
