@@ -174,8 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               icon: Icons.check,
                               backgroundColor: AppColors.success,
                               flushbarPosition: FlushbarPosition.TOP);
-                            AutoRouter.of(context).push(const EmployeeDashboardRoute());
-                            
+                            AutoRouter.of(context).push(EmployeeDashboardRoute());
                           } else {
                             popupsService.showFlushBar(
                               context, 
